@@ -61,7 +61,6 @@ const handleUpdated = (updatedTransaction: TransactionResponse) => {
 
 <template>
     <div class="grid grid-cols-1 md:grid-cols-1 xl:grid-cols-2 gap-12 h-[100%] bg-white rounded-xl shadow-lg p-6">
-        <!-- Columna izquierda - Historial -->
         <div class="bg-[#b3e5fb67] rounded-xl shadow-lg p-6 h-[85vh] flex flex-col">
             <h2 class="text-2xl font-bold mb-4 text-[#f894d5]">Historial de transacciones</h2>
             <div class="flex-1 overflow-y-auto pr-2 space-y-4">

@@ -23,7 +23,6 @@ const isLoading = ref<boolean>(false)
 const isUpdating = ref<boolean>(false);
 const error = ref<string | null>(null)
 
-// Conversión de fechas
 const utcToLocal = (utcDate: string) => {
     const date = new Date(utcDate)
     const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
@@ -35,7 +34,6 @@ const localToUTC = (localDate: string) => {
     return new Date(date.getTime() + date.getTimezoneOffset() * 60000).toISOString()
 }
 
-// Fetch transaction data
 watch(() => props.show, async (isVisible) => {
     if (isVisible && props.transactionId) {
         try {
