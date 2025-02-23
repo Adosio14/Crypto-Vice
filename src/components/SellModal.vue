@@ -86,11 +86,6 @@ const resetForm = () => {
         <template #body>
             <form @submit.prevent="handleSubmit" class="space-y-4">
                 <div>
-                    <input type="number" v-model.number="formData.amount" placeholder="Cantidad a vender"
-                        class="w-full p-2 border rounded-md" min="0" step="0.00000001" required>
-                </div>
-
-                <div>
                     <select v-model="formData.crypto" class="w-full p-2 border rounded-md" required>
                         <option value="" disabled>Selecciona cripto a vender</option>
                         <option v-for="option in cryptoOptions" :key="option.value" :value="option.value">
@@ -98,7 +93,10 @@ const resetForm = () => {
                         </option>
                     </select>
                 </div>
-
+                <div>
+                    <input type="number" v-model.number="formData.amount" placeholder="Cantidad a vender"
+                        class="w-full p-2 border rounded-md" min="0" step="0.00000001" required>
+                </div>
                 <div v-if="formData.crypto && cryptoStore.prices[formData.crypto]?.bid" class="text-sm text-gray-400">
                     <p>
                         Disponibles:
