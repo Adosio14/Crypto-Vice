@@ -13,7 +13,7 @@ const items = ref<TransactionResponse[]>([])
 const isLoading = ref<boolean>(true)
 const deleting = ref<boolean>(false);
 const errorMessage = ref<string | null>(null)
-const showEditModal = ref(false)
+const showEditModal = ref<boolean>(false)
 const selectedTransactionId = ref<string | null>(null)
 
 const fetchData = async () => {

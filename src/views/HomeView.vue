@@ -6,9 +6,9 @@ import { useCryptoStore } from '../stores/crypto.store';
 import router from '../router';
 
 
-const showCompra = ref(false)
-const showVenta = ref(false)
-const loading = ref(true)
+const showCompra = ref<boolean>(false)
+const showVenta = ref<boolean>(false)
+const loading = ref<boolean>(true)
 const cryptoStore = useCryptoStore();
 
 const handleTransactionsTap = () => {

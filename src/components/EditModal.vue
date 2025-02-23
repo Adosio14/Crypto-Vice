@@ -19,7 +19,8 @@ const emit = defineEmits<{
 }>()
 
 const localTransaction = ref<TransactionResponse | null>(null)
-const isLoading = ref(false)
+const isLoading = ref<boolean>(false)
+const isUpdating = ref<boolean>(false);
 const error = ref<string | null>(null)
 
 // Conversión de fechas
@@ -60,6 +61,7 @@ watch(() => props.show, async (isVisible) => {
 
 const handleSubmit = async () => {
     if (!localTransaction.value) return
+    isUpdating.value = true;
     try {
         const payload = {
             ...localTransaction.value,
@@ -68,10 +70,13 @@ const handleSubmit = async () => {
         }
         const response = await apiService.editTransaction(localTransaction.value._id, payload);
         emit('updated', response!)
-        emit('close')
+
     } catch (err) {
         error.value = 'Error al guardar los cambios'
         console.error(err)
+    } finally {
+        isUpdating.value = false;
+        emit('close')
     }
 
 }
@@ -129,13 +134,13 @@ const handleSubmit = async () => {
                 </div>
 
                 <div class="flex justify-end space-x-3 pt-4">
-                    <button type="button" @click="emit('close')"
+                    <button v-if="!isUpdating" type="button" @click="emit('close')"
                         class="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md shadow-sm transition-colors">
                         Cancelar
                     </button>
-                    <button type="submit"
+                    <button :disabled="isUpdating" type="submit"
                         class="px-4 py-2 bg-[#ffc9d9] text-gray-900 hover:bg-[#f8b5c9] rounded-md shadow-sm transition-colors">
-                        Guardar Cambios
+                        {{ isUpdating ? "Actualizando transacción..." : "Guardar Cambios" }}
                     </button>
                 </div>
             </form>
