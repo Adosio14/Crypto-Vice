@@ -28,9 +28,9 @@ export const getChartData = (transactions: TransactionResponse[]): ChartData => 
         DAI: 0
     }
 
-    transactions.forEach(({ crypto_code, crypto_amount }) => {
+    transactions.forEach(({ crypto_code, crypto_amount, action }) => {
         const code = crypto_code.toUpperCase() as keyof typeof totals
-        if (totals[code] !== undefined) {
+        if (totals[code] !== undefined && action === 'purchase') {
             totals[code] += parseFloat(crypto_amount)
         }
     })
