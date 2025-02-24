@@ -87,13 +87,13 @@ const handleSubmit = async () => {
                 <span class="animate-pulse">Cargando transacción...</span>
             </div>
 
-            <div v-else-if="error" class="text-red-500 text-center p-4">
+            <div v-else-if="error" class="text-red-500 text-start p-4">
                 {{ error }}
             </div>
 
-            <form v-else-if="localTransaction" @submit.prevent="handleSubmit" class="space-y-4">
+            <form v-else-if="localTransaction" @submit.prevent="handleSubmit" class="space-y-4 text-start">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Acción</label>
+                    <label class="block text-sm font-medium text-[#f894d5] mb-1">Acción</label>
                     <select v-model="localTransaction.action"
                         class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#ffc9d9] focus:border-[#ffc9d9]">
                         <option value="purchase">Compra</option>
@@ -102,7 +102,7 @@ const handleSubmit = async () => {
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Criptomoneda</label>
+                    <label class="block text-sm font-medium text-[#f894d5] mb-1">Criptomoneda</label>
                     <select v-model="localTransaction.crypto_code"
                         class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#ffc9d9] focus:border-[#ffc9d9]">
                         <option v-for="crypto in cryptoOptions" :key="crypto.value" :value="crypto.value">
@@ -112,21 +112,21 @@ const handleSubmit = async () => {
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Cantidad de Crypto</label>
+                    <label class="block text-sm font-medium text-[#f894d5] mb-1">Cantidad de Crypto</label>
                     <input v-model.number="localTransaction.crypto_amount" type="number" step="0.00000001" min="0"
                         placeholder="Ej: 0.5"
                         class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#ffc9d9] focus:border-[#ffc9d9]" />
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Monto en Pesos</label>
+                    <label class="block text-sm font-medium text-[#f894d5] mb-1">Monto en Pesos</label>
                     <input v-model.number="localTransaction.money" type="number" step="0.01" min="0"
                         placeholder="Ej: 150000.00"
                         class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#ffc9d9] focus:border-[#ffc9d9]" />
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Fecha y Hora</label>
+                    <label class="block text-sm font-medium text-[#f894d5] mb-1">Fecha y Hora</label>
                     <input v-model="localTransaction.datetime" type="datetime-local"
                         class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#ffc9d9] focus:border-[#ffc9d9]" />
                 </div>

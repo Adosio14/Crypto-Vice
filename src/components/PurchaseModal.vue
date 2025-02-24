@@ -84,9 +84,10 @@ const resetForm = () => {
         </template>
 
         <template #body>
-            <form @submit.prevent="handleSubmit" class="space-y-4">
+            <form @submit.prevent="handleSubmit" class="space-y-4 text-start">
                 <div>
-                    <select v-model="formData.crypto" class="w-full p-2 border rounded-md" required>
+                    <label for="crypto-select" class="block text-sm font-bold text-[#42f5b9] mb-1">Criptomoneda</label>
+                    <select id="crypto-select" v-model="formData.crypto" class="w-full p-2 border rounded-md" required>
                         <option value="" disabled>Selecciona una criptomoneda</option>
                         <option v-for="option in cryptoOptions" :key="option.value" :value="option.value">
                             {{ option.label }}
@@ -94,11 +95,15 @@ const resetForm = () => {
                     </select>
                 </div>
                 <div>
-                    <input type="number" v-model.number="formData.amount" placeholder="Monto en ARS"
+                    <label for="amount-input" class="block text-sm font-bold text-[#42f5b9] mb-1">Cantidad a invertir
+                        (en
+                        ARS)</label>
+                    <input type="number" id="amount-input" v-model.number="formData.amount" placeholder="Monto en ARS"
                         class="w-full p-2 border rounded-md" min="0" step="0.01" required>
                 </div>
-                <div v-if="formData.crypto && cryptoStore.prices[formData.crypto]?.ask" class="text-sm text-gray-400">
-                    <p>Precio actual: ${{ cryptoStore.prices[formData.crypto].ask.toLocaleString() }}</p>
+                <div v-if="formData.crypto && cryptoStore.prices[formData.crypto]?.ask" class="text-sm text-gray-500">
+                    <p>Precio actual: 1 {{ formData.crypto.toUpperCase() + " = " +
+                        cryptoStore.prices[formData.crypto].ask.toLocaleString() }} ARS</p>
                     <p>
                         Recibirás:
                         <span class="font-bold text-[#42f5b9]">

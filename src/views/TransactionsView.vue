@@ -60,8 +60,15 @@ const handleUpdated = (updatedTransaction: TransactionResponse) => {
 </script>
 
 <template>
-    <div class="grid grid-cols-1 md:grid-cols-1 xl:grid-cols-2 gap-12 h-[100%] bg-white rounded-xl shadow-lg p-6">
-        <div class="bg-[#b3e5fb67] rounded-xl shadow-lg p-6 h-[85vh] flex flex-col">
+
+    <div class="grid grid-cols-1 md:grid-cols-1 xl:grid-cols-2 gap-12 h-[90vh] bg-white rounded-xl shadow-lg p-6">
+        <div class="col-span-full">
+            <button @click="$router.go(-1)"
+                class="flex items-center px-3 py-1.5 text-sm bg-[#f894d585] hover:bg-[#da7eb8b2] text-black rounded-md transition-colors">
+                Volver
+            </button>
+        </div>
+        <div class="bg-[#b3e5fb67] rounded-xl shadow-lg p-6 h-[75vh] flex flex-col">
             <h2 class="text-2xl font-bold mb-4 text-[#f894d5]">Historial de transacciones</h2>
             <div class="flex-1 overflow-y-auto pr-2 space-y-4">
                 <div v-if="isLoading" class="text-gray-500">Loading...</div>
@@ -86,8 +93,8 @@ const handleUpdated = (updatedTransaction: TransactionResponse) => {
                                 <span class="font-medium">{{ item.crypto_amount }} {{ item.crypto_code }}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span>Monto pagado:</span>
-                                <span class="font-medium">{{ item.money }}</span>
+                                <span> Monto {{ item.action == 'purchase' ? " Pagado" : " Recibido" }}:</span>
+                                <span class="font-medium">{{ item.money }} ARS</span>
                             </div>
                             <div class="flex justify-between">
                                 <span>Fecha:</span>
