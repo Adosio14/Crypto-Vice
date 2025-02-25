@@ -13,19 +13,28 @@ interface CryptoStoreState {
     }
 }
 
+const defaultUserCryptoBalance = {
+    [CryptoType.BTC]: 0,
+    [CryptoType.ETH]: 0,
+    [CryptoType.DAI]: 0
+};
+
 export const useCryptoStore = defineStore('crypto', {
-    state: (): CryptoStoreState => ({
-        prices: {
-            [CryptoType.BTC]: {} as CryptoPrice,
-            [CryptoType.ETH]: {} as CryptoPrice,
-            [CryptoType.DAI]: {} as CryptoPrice
-        },
-        userCryptoBalance: {
-            [CryptoType.BTC]: 0,
-            [CryptoType.ETH]: 0,
-            [CryptoType.DAI]: 0
-        }
-    }),
+    state: (): CryptoStoreState => {
+        const savedBalance = localStorage.getItem('userCryptoBalance');
+        const initialBalance = savedBalance
+            ? { ...defaultUserCryptoBalance, ...JSON.parse(savedBalance) }
+            : defaultUserCryptoBalance;
+
+        return {
+            prices: {
+                [CryptoType.BTC]: {} as CryptoPrice,
+                [CryptoType.ETH]: {} as CryptoPrice,
+                [CryptoType.DAI]: {} as CryptoPrice
+            },
+            userCryptoBalance: initialBalance
+        };
+    },
     actions: {
         async fetchCryptoPrices() {
             try {
@@ -45,23 +54,18 @@ export const useCryptoStore = defineStore('crypto', {
             }
         },
         updateUserCryptoBalance(crypto: string, amount: number) {
-            if (crypto == 'btc') {
-                this.userCryptoBalance.btc = amount;
-            } else if (crypto == 'eth') {
-                this.userCryptoBalance.eth = amount;
-            } else {
-                this.userCryptoBalance.dai = amount;
-            }
-            console.log("CryptoAmount balance: ", this.userCryptoBalance)
+            const cryptoKey = crypto as CryptoType;
+            this.userCryptoBalance[cryptoKey] = amount;
+
+            localStorage.setItem('userCryptoBalance', JSON.stringify(this.userCryptoBalance));
+            console.log("Balance actualizado: ", this.userCryptoBalance);
         },
         getUsetCryptoBalance(crypto: string): number | undefined {
-            if (crypto == 'btc') {
-                return this.userCryptoBalance.btc;
-            } else if (crypto == 'eth') {
-                return this.userCryptoBalance.eth;
-            } else {
-                return this.userCryptoBalance.dai;
-            }
+
+            const cryptoKey = crypto as CryptoType;
+            console.log("CriptoKey: ", cryptoKey)
+            return this.userCryptoBalance[cryptoKey];
+
         }
     }
 })
