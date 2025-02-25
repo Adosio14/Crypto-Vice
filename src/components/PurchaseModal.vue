@@ -57,7 +57,9 @@ const handleSubmit = async () => {
     try {
         console.log("CryptoAmount: ", cryptoAmount.value);
         await apiService.createTransaction(transaction);
-        cryptoStore.updateUserCryptoBalance(formData.value.crypto, cryptoAmount.value)
+        const previousBalance = cryptoStore.getUsetCryptoBalance(formData.value.crypto) ?? 0;
+        const newBalance = previousBalance + cryptoAmount.value;
+        cryptoStore.updateUserCryptoBalance(formData.value.crypto, newBalance);
     } catch (err) {
         console.log("Error peganodle a la api: ", err);
     } finally {

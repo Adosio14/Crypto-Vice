@@ -71,7 +71,7 @@ const handleUpdated = (updatedTransaction: TransactionResponse) => {
         <div class="bg-[#b3e5fb67] rounded-xl shadow-lg p-6 h-[75vh] flex flex-col">
             <h2 class="text-2xl font-bold mb-4 text-[#f894d5]">Historial de transacciones</h2>
             <div class="flex-1 overflow-y-auto pr-2 space-y-4">
-                <div v-if="isLoading" class="text-gray-500">Loading...</div>
+                <div v-if="isLoading" class="text-gray-500">Cargando tus transacciones...</div>
                 <div v-else-if="errorMessage" class="text-red-500">{{ errorMessage }}</div>
 
                 <div v-else class="space-y-4 my-4">
@@ -117,7 +117,6 @@ const handleUpdated = (updatedTransaction: TransactionResponse) => {
         </div>
         <div class="flex flex-col justify-center gap-8 ">
             <CryptoPieChart :transactions="items" />
-
             <InvestmentsResults :transactions="items" />
         </div>
 

@@ -21,6 +21,7 @@ const emit = defineEmits<{
 
 const loading = ref<boolean>(false);
 
+
 const formData = ref<{
     amount: number
     crypto: CryptoType | ''
@@ -105,7 +106,8 @@ const resetForm = () => {
                     <p>
                         Disponibles:
                         <span class="font-bold text-[#fc9db9]">
-                            {{ cryptoStore.userCryptoBalance[formData.crypto] + ' ' + formData.crypto.toUpperCase() }}
+                            {{ cryptoStore.getUsetCryptoBalance(formData.crypto) + ' ' + formData.crypto.toUpperCase()
+                            }}
                         </span>
                     </p>
                     <p>Precio actual: 1 {{ formData.crypto.toUpperCase() + " = " +
